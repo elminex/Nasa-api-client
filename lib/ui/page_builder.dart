@@ -3,7 +3,10 @@ import 'package:go_router/go_router.dart';
 
 class PageBuilder extends StatelessWidget {
   final Widget page;
-  const PageBuilder({super.key, required this.page});
+  final Widget? button;
+  final List<Widget>? footerButtons;
+  const PageBuilder(
+      {super.key, required this.page, this.button, this.footerButtons});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,19 @@ class PageBuilder extends StatelessWidget {
         ),
       ),
       body: page,
+      floatingActionButton: button,
+      bottomNavigationBar: footerButtons != null
+          ? SizedBox(
+              height: 120,
+              child: Container(
+                decoration: const BoxDecoration(color: Colors.black),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: footerButtons!,
+                ),
+              ),
+            )
+          : null,
     );
   }
 }
