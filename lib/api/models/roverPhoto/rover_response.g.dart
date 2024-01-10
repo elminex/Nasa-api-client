@@ -12,3 +12,8 @@ RoverResponse _$RoverResponseFromJson(Map<String, dynamic> json) =>
           .map((e) => e as Map<String, dynamic>)
           .toList(),
     );
+
+Map<String, dynamic> _$RoverResponseToJson(RoverResponse instance) =>
+    <String, dynamic>{
+      'photos': instance.photos,
+    };

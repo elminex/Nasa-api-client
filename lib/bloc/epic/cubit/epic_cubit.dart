@@ -17,51 +17,12 @@ void _createUrl(Epic elem, String type) {
 class EpicCubit extends Cubit<EpicState> {
   EpicCubit() : super(EpicInitial());
 
-  void getNaturalImages() async {
+  void getImages(String type) async {
     emit(EpicLoading());
     try {
-      final metadata = await ApiRepository().getNormalImageMetadata();
+      final metadata = await ApiRepository().getImageMetadata(type);
       for (final elem in metadata) {
-        _createUrl(elem, "natural");
-      }
-      emit(EpicLoaded(metadata));
-    } catch (error) {
-      emit(EpicError(error));
-    }
-  }
-
-  void getEnhancedImages() async {
-    emit(EpicLoading());
-    try {
-      final metadata = await ApiRepository().getEnhancedImageMetadata();
-      for (final elem in metadata) {
-        _createUrl(elem, "enhanced");
-      }
-      emit(EpicLoaded(metadata));
-    } catch (error) {
-      emit(EpicError(error));
-    }
-  }
-
-  void getAerosolImages() async {
-    emit(EpicLoading());
-    try {
-      final metadata = await ApiRepository().getAerosolImageMetadata();
-      for (final elem in metadata) {
-        _createUrl(elem, "aerosol");
-      }
-      emit(EpicLoaded(metadata));
-    } catch (error) {
-      emit(EpicError(error));
-    }
-  }
-
-  void getCloudImages() async {
-    emit(EpicLoading());
-    try {
-      final metadata = await ApiRepository().getCloudImageMetadata();
-      for (final elem in metadata) {
-        _createUrl(elem, "cloud");
+        _createUrl(elem, type);
       }
       emit(EpicLoaded(metadata));
     } catch (error) {

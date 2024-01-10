@@ -14,3 +14,10 @@ VisiblePlanets _$VisiblePlanetsFromJson(Map<String, dynamic> json) =>
           .toList(),
       links: Map<String, String>.from(json['links'] as Map),
     );
+
+Map<String, dynamic> _$VisiblePlanetsToJson(VisiblePlanets instance) =>
+    <String, dynamic>{
+      'meta': instance.meta,
+      'data': instance.data,
+      'links': instance.links,
+    };

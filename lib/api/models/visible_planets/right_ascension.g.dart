@@ -14,3 +14,12 @@ RightAscension _$RightAscensionFromJson(Map<String, dynamic> json) =>
       seconds: (json['seconds'] as num).toDouble(),
       raw: (json['raw'] as num).toDouble(),
     );
+
+Map<String, dynamic> _$RightAscensionToJson(RightAscension instance) =>
+    <String, dynamic>{
+      'negative': instance.negative,
+      'hours': instance.hours,
+      'minutes': instance.minutes,
+      'seconds': instance.seconds,
+      'raw': instance.raw,
+    };

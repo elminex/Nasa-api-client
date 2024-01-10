@@ -19,3 +19,15 @@ Rover _$RoverFromJson(Map<String, dynamic> json) => Rover(
           .map((e) => RoverCamera.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
+
+Map<String, dynamic> _$RoverToJson(Rover instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'landing_date': instance.landing_date.toIso8601String(),
+      'launch_date': instance.launch_date.toIso8601String(),
+      'status': instance.status,
+      'max_sol': instance.max_sol,
+      'max_date': instance.max_date.toIso8601String(),
+      'total_photos': instance.total_photos,
+      'cameras': instance.cameras,
+    };

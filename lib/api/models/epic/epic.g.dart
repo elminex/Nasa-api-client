@@ -21,3 +21,14 @@ Epic _$EpicFromJson(Map<String, dynamic> json) => Epic(
       attitude_quaternions: Quaternions.fromJson(
           json['attitude_quaternions'] as Map<String, dynamic>),
     );
+
+Map<String, dynamic> _$EpicToJson(Epic instance) => <String, dynamic>{
+      'image': instance.image,
+      'date': instance.date,
+      'caption': instance.caption,
+      'centroid_coordinates': instance.centroid_coordinates,
+      'dscovr_j2000_position': instance.dscovr_j2000_position,
+      'lunar_j2000_position': instance.lunar_j2000_position,
+      'sun_j2000_position': instance.sun_j2000_position,
+      'attitude_quaternions': instance.attitude_quaternions,
+    };

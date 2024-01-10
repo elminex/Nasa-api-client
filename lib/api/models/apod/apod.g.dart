@@ -17,3 +17,14 @@ Apod _$ApodFromJson(Map<String, dynamic> json) => Apod(
       title: json['title'] as String?,
       url: json['url'] as String?,
     );
+
+Map<String, dynamic> _$ApodToJson(Apod instance) => <String, dynamic>{
+      'copyright': instance.copyright,
+      'date': instance.date?.toIso8601String(),
+      'explanation': instance.explanation,
+      'hdurl': instance.hdurl,
+      'media_type': instance.media_type,
+      'service_version': instance.service_version,
+      'title': instance.title,
+      'url': instance.url,
+    };

@@ -6,7 +6,7 @@ import 'package:nasa_api_app/bloc/mars_rover/cubit/mars_rover_cubit.dart';
 import '../utils/random_date_generator.dart';
 
 const List<String> rovers = ['Curiosity', 'Opportunity', 'Spirit'];
-final List<Camera> cameras = [
+const List<Camera> cameras = [
   Camera(name: "All available cameras", value: 'all', availability: "cos"),
   Camera(
       name: "Front Hazard Avoidance Camera",
@@ -103,9 +103,10 @@ class _MarsRoverFormPageState extends State<MarsRoverFormPage> {
                 onPressed: () {
                   if (roverSelectedValue == null) {
                     showMyDialog(context);
+                  } else {
+                    DateTime? date = randomDateGenerator(roverSelectedValue!);
+                    if (date != null) setState(() => selectedDate = date);
                   }
-                  DateTime? date = randomDateGenerator(roverSelectedValue!);
-                  if (date != null) setState(() => selectedDate = date);
                 },
                 child: const Text("Random date")),
             Column(
@@ -151,16 +152,16 @@ class Camera {
   final String value;
   final String availability;
 
-  Camera({required this.name, required this.value, required this.availability});
+  const Camera(
+      {required this.name, required this.value, required this.availability});
 }
 
 void showMyDialog(context) {
-  showDialog(
+  showAdaptiveDialog(
     context: context,
-    builder: (ctx) => AlertDialog(
+    builder: (ctx) => AlertDialog.adaptive(
       content: const Text(
         "Select Rover first",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
       ),
       actions: <Widget>[
         TextButton(
@@ -168,8 +169,7 @@ void showMyDialog(context) {
             Navigator.of(ctx).pop();
           },
           child: const Text(
-            "GO back",
-            style: TextStyle(color: Colors.cyan, fontSize: 17),
+            "Go back",
           ),
         ),
       ],

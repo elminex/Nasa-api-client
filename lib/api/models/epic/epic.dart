@@ -19,6 +19,7 @@ class Epic {
   final Quaternions attitude_quaternions;
 
   factory Epic.fromJson(Map<String, dynamic> json) => _$EpicFromJson(json);
+  Map<String, dynamic> toJson() => _$EpicToJson(this);
 
   Epic({
     required this.image,

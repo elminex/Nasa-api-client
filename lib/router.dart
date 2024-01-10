@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nasa_api_app/api/models/epic/image_type_enum.dart';
 import 'package:nasa_api_app/bloc/apod/apod_cubit.dart';
 import 'package:nasa_api_app/bloc/epic/cubit/epic_cubit.dart';
 import 'package:nasa_api_app/ui/mrp_form_page.dart';
@@ -31,42 +32,17 @@ final router = GoRouter(
       builder: (context, state) => PageBuilder(
         page: const EpicPage(),
         footerButtons: [
-          Expanded(
-            flex: 1,
-            child: TextButton(
-              onPressed: () => context.read<EpicCubit>().getEnhancedImages(),
-              child: const Text(
-                "Enhanced colors",
-                textAlign: TextAlign.center,
+          ...ImageTypeEnum.values.map(
+            (type) => Expanded(
+              flex: 1,
+              child: TextButton(
+                onPressed: () => context.read<EpicCubit>().getImages(type.name),
+                child: Text(
+                  type.name,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: TextButton(
-                onPressed: () => context.read<EpicCubit>().getAerosolImages(),
-                child: const Text(
-                  "Aerosol",
-                  textAlign: TextAlign.center,
-                )),
-          ),
-          Expanded(
-            flex: 1,
-            child: TextButton(
-                onPressed: () => context.read<EpicCubit>().getCloudImages(),
-                child: const Text(
-                  "cloud",
-                  textAlign: TextAlign.center,
-                )),
-          ),
-          Expanded(
-            flex: 1,
-            child: TextButton(
-                onPressed: () => context.read<EpicCubit>().getNaturalImages(),
-                child: const Text(
-                  "Natural colors",
-                  textAlign: TextAlign.center,
-                )),
           ),
         ],
       ),

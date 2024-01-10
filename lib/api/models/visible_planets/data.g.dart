@@ -19,3 +19,15 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       magnitude: (json['magnitude'] as num).toDouble(),
       nakedEyeObject: json['nakedEyeObject'] as bool,
     );
+
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+      'name': instance.name,
+      'constellation': instance.constellation,
+      'rightAscension': instance.rightAscension,
+      'declination': instance.declination,
+      'altitude': instance.altitude,
+      'azimuth': instance.azimuth,
+      'aboveHorizon': instance.aboveHorizon,
+      'magnitude': instance.magnitude,
+      'nakedEyeObject': instance.nakedEyeObject,
+    };

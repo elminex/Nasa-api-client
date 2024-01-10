@@ -14,4 +14,5 @@ class Quaternions {
 
   factory Quaternions.fromJson(Map<String, dynamic> json) =>
       _$QuaternionsFromJson(json);
+  Map<String, dynamic> toJson() => _$QuaternionsToJson(this);
 }

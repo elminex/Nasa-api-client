@@ -13,3 +13,12 @@ Declination _$DeclinationFromJson(Map<String, dynamic> json) => Declination(
       arcseconds: (json['arcseconds'] as num).toDouble(),
       raw: (json['raw'] as num).toDouble(),
     );
+
+Map<String, dynamic> _$DeclinationToJson(Declination instance) =>
+    <String, dynamic>{
+      'negative': instance.negative,
+      'degrees': instance.degrees,
+      'arcminutes': instance.arcminutes,
+      'arcseconds': instance.arcseconds,
+      'raw': instance.raw,
+    };

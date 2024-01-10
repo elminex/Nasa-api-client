@@ -27,4 +27,5 @@ class Apod {
   });
 
   factory Apod.fromJson(Map<String, dynamic> json) => _$ApodFromJson(json);
+  Map<String, dynamic> toJson() => _$ApodToJson(this);
 }

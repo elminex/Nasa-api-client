@@ -7,6 +7,7 @@ import 'package:nasa_api_app/api/models/visible_planets/visible_planets_model.da
 import 'dart:convert';
 import 'package:nasa_api_app/env/env.dart';
 
+import 'models/nil/nil_collection.dart';
 import 'models/roverPhoto/rover_photo.dart';
 import 'models/visible_planets/data.dart';
 
@@ -86,6 +87,25 @@ class ApiService {
         final VisiblePlanets body =
             VisiblePlanets.fromJson(json.decode(response.body));
         return body.data;
+      } else {
+        throw Exception("Response is empty");
+      }
+    }
+    throw Exception(
+        "Error fetching data. Status code: ${response.statusCode}, response: ${response.body}");
+  }
+
+  Future<NILCollection> getNilSearchResult(String query) async {
+    const String apiUrl = 'https://images-api.nasa.gov/search';
+    final response = await http.get(Uri.parse(apiUrl).replace(queryParameters: {
+      "q": query,
+      "api_key": Env.key,
+    }));
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        final NILCollection body =
+            NILCollection.fromJson(json.decode(response.body));
+        return body;
       } else {
         throw Exception("Response is empty");
       }

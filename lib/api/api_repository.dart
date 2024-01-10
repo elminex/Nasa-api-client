@@ -11,14 +11,8 @@ class ApiRepository {
   Future<Apod> getRandomApod() async =>
       ApiService().getAPOD({"date": getUrlOfRandomApod()});
 
-  Future<List<Epic>> getNormalImageMetadata() async =>
-      ApiService().getEpic("natural");
-  Future<List<Epic>> getEnhancedImageMetadata() async =>
-      ApiService().getEpic("enhanced");
-  Future<List<Epic>> getAerosolImageMetadata() async =>
-      ApiService().getEpic("aerosol");
-  Future<List<Epic>> getCloudImageMetadata() async =>
-      ApiService().getEpic("cloud");
+  Future<List<Epic>> getImageMetadata(String type) async =>
+      ApiService().getEpic(type);
 
   Future<List<RoverPhoto>> getRoverPhotos(
           String roverName, String date, String roverCamera) async =>

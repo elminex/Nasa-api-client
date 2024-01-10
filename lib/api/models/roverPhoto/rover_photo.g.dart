@@ -14,3 +14,13 @@ RoverPhoto _$RoverPhotoFromJson(Map<String, dynamic> json) => RoverPhoto(
       earth_date: DateTime.parse(json['earth_date'] as String),
       rover: Rover.fromJson(json['rover'] as Map<String, dynamic>),
     );
+
+Map<String, dynamic> _$RoverPhotoToJson(RoverPhoto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'sol': instance.sol,
+      'camera': instance.camera,
+      'img_src': instance.img_src,
+      'earth_date': instance.earth_date.toIso8601String(),
+      'rover': instance.rover,
+    };
