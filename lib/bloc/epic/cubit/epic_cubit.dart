@@ -10,7 +10,7 @@ part 'epic_state.dart';
 void _createUrl(Epic elem, String type) {
   final date = DateTime.parse(elem.date);
   final url =
-      'https://epic.gsfc.nasa.gov/archive/$type/${date.year}/${date.month}/${date.day}/jpg/${elem.image}.jpg';
+      'https://epic.gsfc.nasa.gov/archive/$type/${date.year}/${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')}/jpg/${elem.image}.jpg';
   elem.image = url;
 }
 

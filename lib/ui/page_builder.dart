@@ -37,6 +37,9 @@ class PageBuilder extends StatelessWidget {
               title: const Text('Nasa Image Library'),
               onTap: () => context.go('/nil'),
             ),
+            ListTile(
+                title: const Text("Visible Planets"),
+                onTap: () => context.go('/planets'))
           ],
         ),
       ),

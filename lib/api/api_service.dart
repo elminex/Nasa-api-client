@@ -1,18 +1,20 @@
 import 'package:http/http.dart' as http;
 import 'package:nasa_api_app/api/models/apod/apod.dart';
 import 'package:nasa_api_app/api/models/epic/epic.dart';
+import 'package:nasa_api_app/api/models/roverPhoto/rover_response.dart';
+import 'package:nasa_api_app/api/models/visible_planets/visible_planets_model.dart';
 
 import 'dart:convert';
 import 'package:nasa_api_app/env/env.dart';
+
+import 'models/roverPhoto/rover_photo.dart';
+import 'models/visible_planets/data.dart';
 
 class ApiService {
   ApiService({this.baseUrl = 'https://api.nasa.gov'});
   final String baseUrl;
 
-  Uri getUrl({
-    required String url,
-    Map<String, String>? queryParams,
-  }) {
+  Uri getUrl({required String url, Map<String, String>? queryParams}) {
     return Uri.parse('$baseUrl/$url').replace(queryParameters: queryParams);
   }
 
@@ -38,6 +40,52 @@ class ApiService {
       if (response.body.isNotEmpty) {
         final List body = json.decode(response.body);
         return body.map((element) => Epic.fromJson(element)).toList();
+      } else {
+        throw Exception("Response is empty");
+      }
+    }
+    throw Exception(
+        "Error fetching data. Status code: ${response.statusCode}, response: ${response.body}");
+  }
+
+  Future<List<RoverPhoto>> getRoverPhoto(
+      String roverName, String date, String roverCamera) async {
+    final response = await http.get(getUrl(
+        url: "mars-photos/api/v1/rovers/$roverName/photos",
+        queryParams: {
+          "earth_date": date,
+          "api_key": Env.key,
+          ...roverCamera == "all" ? {} : {"camera": roverCamera}
+        }));
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        final RoverResponse body =
+            RoverResponse.fromJson(json.decode(response.body));
+        return body.photos
+            .map((element) => RoverPhoto.fromJson(element))
+            .toList();
+      } else {
+        throw Exception("Response is empty");
+      }
+    }
+    throw Exception(
+        "Error fetching data. Status code: ${response.statusCode}, response: ${response.body}");
+  }
+
+  Future<List<Data>> getVisiblePlanets(
+      double userLatitude, double userLongitude, double userAltitude) async {
+    final response = await http.get(
+        Uri.parse('https://api.visibleplanets.dev/v3')
+            .replace(queryParameters: {
+      "latitude": '$userLatitude',
+      "longitude": '$userLongitude',
+      "elevation": '$userAltitude',
+    }));
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        final VisiblePlanets body =
+            VisiblePlanets.fromJson(json.decode(response.body));
+        return body.data;
       } else {
         throw Exception("Response is empty");
       }

@@ -14,7 +14,7 @@ class EpicPage extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text("EPIC pictures of earth."),
+              const Text("Latest EPIC pictures of earth."),
               Expanded(
                 child: ListView(
                   scrollDirection: Axis.horizontal,
