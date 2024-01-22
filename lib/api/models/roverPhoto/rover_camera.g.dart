@@ -12,3 +12,11 @@ RoverCamera _$RoverCameraFromJson(Map<String, dynamic> json) => RoverCamera(
       rover_id: json['rover_id'] as int?,
       full_name: json['full_name'] as String,
     );
+
+Map<String, dynamic> _$RoverCameraToJson(RoverCamera instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'rover_id': instance.rover_id,
+      'full_name': instance.full_name,
+    };

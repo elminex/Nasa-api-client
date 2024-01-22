@@ -5,11 +5,11 @@ import 'nil_data.dart';
 import 'nil_link.dart';
 part 'nil_item.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(checked: true)
 class NILItem {
   final String href;
   final List<NILData> data;
-  final List<NILLink> links;
+  final List<NILLink>? links;
 
   factory NILItem.fromJson(Map<String, dynamic> json) =>
       _$NILItemFromJson(json);

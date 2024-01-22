@@ -5,7 +5,7 @@ import 'nil_metadata.dart';
 import 'nil_link.dart';
 part 'nil_collection.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(checked: true)
 class NILCollection {
   final String version;
   final String href;

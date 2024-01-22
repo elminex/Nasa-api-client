@@ -10,7 +10,10 @@ class NILData {
   final String nasa_id;
   final DateTime date_created;
   final String media_type;
+  final String? secondary_creator;
   final String description;
+  final String? description_508;
+  final List<String>? album;
   factory NILData.fromJson(Map<String, dynamic> json) =>
       _$NILDataFromJson(json);
 
@@ -21,5 +24,8 @@ class NILData {
       required this.nasa_id,
       required this.date_created,
       required this.media_type,
-      required this.description});
+      required this.description,
+      this.description_508,
+      this.secondary_creator,
+      this.album});
 }

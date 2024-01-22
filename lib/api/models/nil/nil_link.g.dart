@@ -6,11 +6,18 @@ part of 'nil_link.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NILLink _$NILLinkFromJson(Map<String, dynamic> json) => NILLink(
-      rel: json['rel'] as String,
-      prompt: json['prompt'] as String?,
-      href: json['href'] as String,
-      render: json['render'] as String?,
+NILLink _$NILLinkFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'NILLink',
+      json,
+      ($checkedConvert) {
+        final val = NILLink(
+          rel: $checkedConvert('rel', (v) => v as String),
+          prompt: $checkedConvert('prompt', (v) => v as String?),
+          href: $checkedConvert('href', (v) => v as String),
+          render: $checkedConvert('render', (v) => v as String?),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$NILLinkToJson(NILLink instance) => <String, dynamic>{

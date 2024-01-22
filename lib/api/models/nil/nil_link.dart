@@ -2,7 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'nil_link.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(checked: true)
 class NILLink {
   final String rel;
   final String? prompt;
@@ -11,9 +11,5 @@ class NILLink {
   factory NILLink.fromJson(Map<String, dynamic> json) =>
       _$NILLinkFromJson(json);
 
-  NILLink(
-      {required this.rel,
-      required this.prompt,
-      required this.href,
-      required this.render});
+  NILLink({required this.rel, this.prompt, required this.href, this.render});
 }

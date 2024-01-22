@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:nasa_api_app/api/models/apod/apod.dart';
 import 'package:nasa_api_app/api/models/epic/epic.dart';
+import 'package:nasa_api_app/api/models/nil/nil_response.dart';
 import 'package:nasa_api_app/api/models/roverPhoto/rover_response.dart';
 import 'package:nasa_api_app/api/models/visible_planets/visible_planets_model.dart';
 
@@ -99,12 +100,26 @@ class ApiService {
     const String apiUrl = 'https://images-api.nasa.gov/search';
     final response = await http.get(Uri.parse(apiUrl).replace(queryParameters: {
       "q": query,
-      "api_key": Env.key,
+      "media_type": "image",
     }));
     if (response.statusCode == 200) {
       if (response.body.isNotEmpty) {
-        final NILCollection body =
-            NILCollection.fromJson(json.decode(response.body));
+        final NILResponse body =
+            NILResponse.fromJson(json.decode(response.body));
+        return body.collection;
+      } else {
+        throw Exception("Response is empty");
+      }
+    }
+    throw Exception(
+        "Error fetching data. Status code: ${response.statusCode}, response: ${response.body}");
+  }
+
+  Future<List<String>> getImageList(String url) async {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        final body = List<String>.from(json.decode(response.body));
         return body;
       } else {
         throw Exception("Response is empty");

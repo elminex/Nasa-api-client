@@ -5,7 +5,8 @@ import 'package:nasa_api_app/api/models/epic/image_type_enum.dart';
 import 'package:nasa_api_app/bloc/apod/apod_cubit.dart';
 import 'package:nasa_api_app/bloc/epic/cubit/epic_cubit.dart';
 import 'package:nasa_api_app/ui/mrp_form_page.dart';
-import 'package:nasa_api_app/ui/nil_page.dart';
+import 'package:nasa_api_app/ui/nil_form_page.dart';
+import 'package:nasa_api_app/ui/nil_result_page.dart';
 import 'package:nasa_api_app/ui/visible_planets.dart';
 import './ui/home_page.dart';
 import './ui/epic_page.dart';
@@ -57,11 +58,16 @@ final router = GoRouter(
               builder: (context, state) => const MarsRoverPhotoPage())
         ]),
     GoRoute(
-      path: '/nil',
-      builder: (context, state) => const PageBuilder(
-        page: NasaImageLibraryPage(),
-      ),
-    ),
+        path: '/nil',
+        builder: (context, state) => const PageBuilder(
+              page: NILFormPage(),
+            ),
+        routes: [
+          GoRoute(
+            path: 'result',
+            builder: (context, state) => const NILResultPage(),
+          ),
+        ]),
     GoRoute(
       path: '/planets',
       builder: (context, state) =>
