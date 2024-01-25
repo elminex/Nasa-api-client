@@ -14,7 +14,11 @@ class MarsRoverCubit extends Cubit<MarsRoverState> {
     try {
       List<RoverPhoto> response =
           await ApiRepository().getRoverPhotos(roverName, date, roverCamera);
-      emit(MarsRoverLoaded(response));
+      if (response.isNotEmpty) {
+        emit(MarsRoverLoaded(response));
+      } else {
+        emit(MarsRoverLoadedNoImages());
+      }
     } catch (error) {
       emit(MarsRoverError(error));
     }

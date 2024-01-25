@@ -27,6 +27,7 @@ class _MarsRoverPhotoPageState extends State<MarsRoverPhotoPage> {
                 .map((image) => Image(
                       image: NetworkImage(image.img_src),
                     ))
+                .take(20)
                 .toList();
             if (images.isEmpty) {
               const Center(
@@ -35,6 +36,7 @@ class _MarsRoverPhotoPageState extends State<MarsRoverPhotoPage> {
             }
             return Column(
               children: [
+                Text('Showing 20 out of ${state.photos.length} images.'),
                 CarouselSlider(
                   items: getImageSliders(images),
                   carouselController: _controller,
@@ -57,6 +59,9 @@ class _MarsRoverPhotoPageState extends State<MarsRoverPhotoPage> {
           }
           if (state is MarsRoverError) {
             return ErrorWidget(state.error);
+          }
+          if (state is MarsRoverLoadedNoImages) {
+            return const Text("No images, try different settings");
           }
           return const Center(child: CircularProgressIndicator.adaptive());
         },

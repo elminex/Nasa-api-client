@@ -1,31 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nasa_api_app/api/models/nil/nil_link.dart';
 import 'package:nasa_api_app/bloc/nil/cubit/nil_cubit.dart';
-import 'package:nasa_api_app/bloc/nil_image/cubit/nil_image_cubit.dart';
-import 'package:nasa_api_app/widgets/nil_image_modal.dart';
+import 'package:nasa_api_app/widgets/NIL_result_grid_item.dart';
 
 class NILResultPage extends StatelessWidget {
   const NILResultPage({super.key});
 
+  void _onPressed(String direction, BuildContext context, List<NILLink> links) {
+    context.read<NILCubit>().getCollections(
+        null, links.where((element) => element.rel == direction).first.href);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("Nasa Image Library Results"),
+      ),
+      backgroundColor: Colors.black,
       body: BlocBuilder<NILCubit, NILState>(builder: (context, state) {
         if (state is NILLoaded) {
-          return ListView(children: [
-            ...state.collection.items.map((e) => TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                      useSafeArea: true,
-                      context: context,
-                      builder: (context) {
-                        return const NILImageModal();
-                      });
-                  context.read<NilImageCubit>().getNILImage(e.href);
-                },
-                child: Text(e.data[0].title)))
-          ]);
+          return Column(
+            children: [
+              Expanded(
+                child: GridView(
+                  padding: const EdgeInsets.all(24),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 4 / 3,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                  ),
+                  children: state.collection.items
+                      .map((item) => NILResultGridItem(item: item))
+                      .toList(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: state.collection.links
+                              .where((element) => element.rel == 'prev')
+                              .isEmpty
+                          ? null
+                          : () => _onPressed(
+                              'next', context, state.collection.links),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.arrow_forward),
+                      disabledColor: Colors.white12,
+                      onPressed: state.collection.links
+                              .where((element) => element.rel == 'next')
+                              .isEmpty
+                          ? null
+                          : () => _onPressed(
+                              'next', context, state.collection.links),
+                    )
+                  ],
+                ),
+              )
+            ],
+          );
         }
         if (state is NILError) {
           return ErrorWidget(state.error);

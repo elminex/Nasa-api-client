@@ -19,10 +19,11 @@ final router = GoRouter(
       path: '/',
       builder: (context, state) => PageBuilder(
         page: const HomePage(),
-        button: FloatingActionButton.large(
+        button: FloatingActionButton.extended(
+          elevation: 12,
           onPressed: () => context.read<ApodCubit>().fetchRandomApod(),
-          child: const Text(
-            "Get random APOD",
+          label: const Text(
+            "Get random picture of the day",
             textAlign: TextAlign.center,
           ),
         ),

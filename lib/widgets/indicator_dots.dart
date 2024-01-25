@@ -16,8 +16,8 @@ class IndicatorDots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: images.asMap().entries.map((entry) {
         return GestureDetector(
           onTap: () => _controller.animateToPage(entry.key),

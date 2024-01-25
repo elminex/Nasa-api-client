@@ -23,7 +23,10 @@ class ApiRepository {
       ApiService().getVisiblePlanets(lat, long, alt);
 
   Future<NILCollection> getNILCollection(String query) =>
-      ApiService().getNilSearchResult(query);
+      ApiService().getNilSearchResult(query, null);
+
+  Future<NILCollection> getNILCollectionByPagination(String url) =>
+      ApiService().getNilSearchResult(null, url);
 
   Future<List<String>> getImageList(String link) =>
       ApiService().getImageList(link);

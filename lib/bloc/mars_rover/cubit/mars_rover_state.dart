@@ -17,6 +17,8 @@ class MarsRoverLoaded extends MarsRoverState {
   List<Object> get props => [photos];
 }
 
+class MarsRoverLoadedNoImages extends MarsRoverState {}
+
 final class MarsRoverError extends MarsRoverState {
   final Object error;
   const MarsRoverError(this.error);

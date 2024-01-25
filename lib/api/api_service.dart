@@ -96,12 +96,16 @@ class ApiService {
         "Error fetching data. Status code: ${response.statusCode}, response: ${response.body}");
   }
 
-  Future<NILCollection> getNilSearchResult(String query) async {
+  Future<NILCollection> getNilSearchResult(
+      String? query, String? paginationUrl) async {
     const String apiUrl = 'https://images-api.nasa.gov/search';
-    final response = await http.get(Uri.parse(apiUrl).replace(queryParameters: {
+    final Uri initialUrl = Uri.parse(apiUrl).replace(queryParameters: {
       "q": query,
       "media_type": "image",
-    }));
+      "page_size": "8",
+    });
+    final response = await http
+        .get(paginationUrl != null ? Uri.parse(paginationUrl) : initialUrl);
     if (response.statusCode == 200) {
       if (response.body.isNotEmpty) {
         final NILResponse body =

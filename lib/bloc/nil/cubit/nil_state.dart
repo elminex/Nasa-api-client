@@ -11,7 +11,7 @@ final class NILInitial extends NILState {}
 class NILLoading extends NILState {}
 
 class NILLoaded extends NILState {
-  final NILCollection collection;
+  final FilteredNILCollection collection;
   const NILLoaded(this.collection);
   @override
   List<Object> get props => [collection];

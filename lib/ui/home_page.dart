@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:transparent_image/transparent_image.dart';
 import '../bloc/apod/apod_cubit.dart';
 import '../bloc/apod/apod_state.dart';
 
@@ -12,39 +13,50 @@ class HomePage extends StatelessWidget {
       builder: (context, state) {
         if (state is ApodLoaded) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(12.0, 12, 12, 110),
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  if (state.apod.title != null) Text(state.apod.title!),
-                  if (state.apod.date != null)
-                    Text(
-                        'Release date: ${state.apod.date!.year}-${state.apod.date!.month}-${state.apod.date!.day}'),
-                  state.apod.url != null
-                      ? Image(
-                          image: NetworkImage(state.apod.url!),
-                          height: 300,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return const Center(
-                                child: SizedBox(
-                                    height: 300,
-                                    child:
-                                        CircularProgressIndicator.adaptive()));
-                          },
-                        )
-                      : const Image(
-                          image: AssetImage('lib/images/apoc_placeholder.jpeg'),
-                          fit: BoxFit.cover,
-                        ),
-                  if (state.apod.explanation != null)
-                    Text(state.apod.explanation!),
-                  if (state.apod.copyright != null)
-                    Text('copyright: ${state.apod.copyright}'),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: Column(
+                  children: [
+                    if (state.apod.title != null)
+                      Text(
+                        state.apod.title!,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                    if (state.apod.date != null)
+                      Text(
+                        'Release date: ${state.apod.date!.year}-${state.apod.date!.month}-${state.apod.date!.day}',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    state.apod.url != null
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 24),
+                            child: FadeInImage(
+                              image: NetworkImage(state.apod.url!),
+                              height: 300,
+                              fit: BoxFit.cover,
+                              placeholder: MemoryImage(kTransparentImage),
+                            ),
+                          )
+                        : const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 24),
+                            child: Image(
+                              image: AssetImage(
+                                  'lib/images/apoc_placeholder.jpeg'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                    if (state.apod.explanation != null)
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text(state.apod.explanation!),
+                      ),
+                    if (state.apod.copyright != null)
+                      Text('copyright: ${state.apod.copyright}'),
+                  ],
+                ),
               ),
             ),
           );
