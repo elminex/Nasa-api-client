@@ -1,16 +1,31 @@
-# nasa_api_app
+# Nasa Api Client
 
-A new Flutter project.
+A new Flutter project that shows space related data, mosty from the free [Nasa Api's](https://api.nasa.gov/).
 
-## Getting Started
+## About this app
 
-This project is a starting point for a Flutter application.
+### What can you do here:
 
-A few resources to get you started if this is your first Flutter project:
+1. Check the newest picture of the day from Nasa, and also look at a random one for more space awesomeness.
+2. Look at pictures of Earth from the DSCOVR spacecraft.
+3. Dig through library of images sent by 3 Mars Rovers: Curiosity, Opportunity and Spirit.
+4. If you want more images, you can search the Nasa Image Library for anything you want.
+5. Check some basic info about our Solar System and check which objects are visible from your geographical position.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### External libraries used: 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  - cupertino_icons
+  - go_router
+  - envied
+  - http
+  - json_annotation
+  - bloc
+  - flutter_bloc
+  - carousel_slider
+  - geolocator
+  - meta
+  - html
+  - url_launcher
+  - transparent_image
+  - google_fonts
+  - collection
