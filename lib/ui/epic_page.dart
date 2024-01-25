@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nasa_api_app/api/models/epic/epic.dart';
-
+import 'package:nasa_api_app/widgets/epic_element.dart';
+import 'package:collection/collection.dart';
+import 'package:nasa_api_app/widgets/pagination_arrows.dart';
 import '../bloc/epic/cubit/epic_cubit.dart';
 
-class EpicPage extends StatelessWidget {
+class EpicPage extends StatefulWidget {
   const EpicPage({super.key});
 
-  List<Widget> getImageList(BuildContext context, List<Epic> epics) {
-    return epics
-        .map(
-          (e) => Image(
-            image: NetworkImage(e.image),
-            fit: BoxFit.fitWidth,
-            width: MediaQuery.of(context).size.width,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return const Center(
-                  child: SizedBox(child: CircularProgressIndicator.adaptive()));
-            },
-          ),
-        )
-        .toList();
+  @override
+  State<EpicPage> createState() => _EpicPageState();
+}
+
+class _EpicPageState extends State<EpicPage> {
+  final _controller = PageController(initialPage: 0);
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    _currentPage = _controller.page as int;
+    super.initState();
   }
 
   @override
@@ -32,14 +28,29 @@ class EpicPage extends StatelessWidget {
       builder: (context, state) {
         if (state is EpicLoaded) {
           return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text("Latest EPIC pictures of earth."),
               Expanded(
-                child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: getImageList(context, state.epic)),
+                child: PageView(
+                  controller: _controller,
+                  onPageChanged: (value) =>
+                      setState(() => _currentPage = value),
+                  children: state.epic
+                      .mapIndexed((index, epic) => EpicElement(
+                          epic: epic, index: index, controller: _controller))
+                      .toList(),
+                ),
               ),
+              Text('Showing image ${_currentPage + 1} of ${state.epic.length}'),
+              PaginationArrows(
+                onPressedNext: () => _controller.nextPage(
+                  duration: Durations.medium1,
+                  curve: Curves.easeIn,
+                ),
+                onPressedPrev: () => _controller.previousPage(
+                  duration: Durations.medium1,
+                  curve: Curves.easeIn,
+                ),
+              )
             ],
           );
         }

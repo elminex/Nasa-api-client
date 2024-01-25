@@ -34,7 +34,7 @@ final List<MissionDate> missionEndDates = [
 
 final List<MissionDate> missionStartdates = [
   MissionDate(rover: "curiosity", date: DateTime.parse('2012-08-06')),
-  MissionDate(rover: "opportynity", date: DateTime.parse('2004-01-25')),
+  MissionDate(rover: "opportunity", date: DateTime.parse('2004-01-25')),
   MissionDate(rover: "spirit", date: DateTime.parse('2003-06-10')),
 ];
 

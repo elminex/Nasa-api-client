@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
                             child: FadeInImage(
                               image: NetworkImage(state.apod.url!),
                               height: 300,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                               placeholder: MemoryImage(kTransparentImage),
                             ),
                           )

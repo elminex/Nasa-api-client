@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 final theme = ThemeData().copyWith(
   colorScheme: kColorScheme,
   appBarTheme: const AppBarTheme().copyWith(
-    backgroundColor: kColorScheme.onPrimaryContainer,
+    backgroundColor: kColorScheme.background,
     foregroundColor: kColorScheme.primaryContainer,
   ),
   cardTheme: const CardTheme().copyWith(
@@ -25,6 +25,10 @@ final theme = ThemeData().copyWith(
 );
 final darkTheme = ThemeData.dark().copyWith(
   colorScheme: kDarkColorScheme,
+  appBarTheme: const AppBarTheme().copyWith(
+    backgroundColor: kColorScheme.primaryContainer,
+    foregroundColor: kColorScheme.onPrimaryContainer,
+  ),
   cardTheme: const CardTheme().copyWith(
     color: kDarkColorScheme.secondaryContainer,
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -38,7 +42,7 @@ final darkTheme = ThemeData.dark().copyWith(
 );
 
 final ColorScheme kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 255, 129, 32),
+  seedColor: const Color.fromRGBO(255, 129, 32, 1),
 );
 ColorScheme kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,

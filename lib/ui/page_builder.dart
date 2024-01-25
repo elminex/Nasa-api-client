@@ -39,7 +39,7 @@ class PageBuilder extends StatelessWidget {
               onTap: () => context.go('/nil'),
             ),
             ListTile(
-                title: const Text("Visible Planets"),
+                title: const Text("Our solar system"),
                 onTap: () => context.go('/planets'))
           ],
         ),

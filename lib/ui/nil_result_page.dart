@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nasa_api_app/api/models/nil/nil_link.dart';
 import 'package:nasa_api_app/bloc/nil/cubit/nil_cubit.dart';
 import 'package:nasa_api_app/widgets/NIL_result_grid_item.dart';
+import 'package:nasa_api_app/widgets/pagination_arrows.dart';
 
 class NILResultPage extends StatelessWidget {
   const NILResultPage({super.key});
@@ -37,33 +38,18 @@ class NILResultPage extends StatelessWidget {
                       .toList(),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: state.collection.links
-                              .where((element) => element.rel == 'prev')
-                              .isEmpty
-                          ? null
-                          : () => _onPressed(
-                              'next', context, state.collection.links),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.arrow_forward),
-                      disabledColor: Colors.white12,
-                      onPressed: state.collection.links
-                              .where((element) => element.rel == 'next')
-                              .isEmpty
-                          ? null
-                          : () => _onPressed(
-                              'next', context, state.collection.links),
-                    )
-                  ],
-                ),
-              )
+              PaginationArrows(
+                onPressedNext: state.collection.links
+                        .where((element) => element.rel == 'next')
+                        .isEmpty
+                    ? null
+                    : () => _onPressed('next', context, state.collection.links),
+                onPressedPrev: state.collection.links
+                        .where((element) => element.rel == 'prev')
+                        .isEmpty
+                    ? null
+                    : () => _onPressed('prev', context, state.collection.links),
+              ),
             ],
           );
         }

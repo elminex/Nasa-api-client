@@ -48,6 +48,7 @@ dependencies:
   url_launcher: ^6.2.4
   transparent_image: ^2.0.1
   google_fonts: ^6.1.0
+  collection: ^1.18.0
 
 
 
@@ -84,6 +85,26 @@ flutter:
     - lib/images/mars_With_rover.jpeg
     - lib/images/spirit&opportunity.jpeg
     - lib/images/landing_bg.jpg
+    - lib/images/earth.png
+    - lib/images/jupiter.png
+    - lib/images/mars.png
+    - lib/images/mercury.png
+    - lib/images/neptune.png
+    - lib/images/saturn.png
+    - lib/images/sun.png
+    - lib/images/uranus.png
+    - lib/images/venus.png
+    - lib/images/pluto.png
+    - lib/images/earthLarge.jpeg
+    - lib/images/jupiterLarge.jpeg
+    - lib/images/marsLarge.jpeg
+    - lib/images/mercuryLarge.jpeg
+    - lib/images/neptuneLarge.jpeg
+    - lib/images/saturnLarge.jpeg
+    - lib/images/sunLarge.jpeg
+    - lib/images/uranusLarge.jpeg
+    - lib/images/venusLarge.jpeg
+    - lib/images/plutoLarge.jpeg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
