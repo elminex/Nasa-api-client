@@ -14,18 +14,15 @@ A new Flutter project that shows space related data, mosty from the free [Nasa A
 
 ### External libraries used: 
 
-  - cupertino_icons
-  - go_router
-  - envied
-  - http
-  - json_annotation
-  - bloc
-  - flutter_bloc
-  - carousel_slider
-  - geolocator
-  - meta
-  - html
-  - url_launcher
-  - transparent_image
-  - google_fonts
-  - collection
+  - [cupertino_icons](https://pub.dev/packages/cupertino_icons)
+  - [go_router](https://pub.dev/packages/go_router)
+  - [envied](https://pub.dev/packages/envied)
+  - [http](https://pub.dev/packages/http)
+  - [json_annotation](https://pub.dev/packages/json_annotation)
+  - [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+  - [carousel_slider](https://pub.dev/packages/carousel_slider)
+  - [geolocator](https://pub.dev/packages/geolocator)
+  - [html](https://pub.dev/packages/html)
+  - [url_launcher](https://pub.dev/packages/url_launcher)
+  - [transparent_image](https://pub.dev/packages/transparent_image)
+  - [google_fonts](https://pub.dev/packages/google_fonts)
