@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:nasa_api_app/utils/set_rover_image.dart';
 import 'package:nasa_api_app/widgets/indicator_dots.dart';
 import 'package:nasa_api_app/widgets/pagination_arrows.dart';
 
@@ -37,12 +38,12 @@ class MrpResultLoadedState extends State<MrpResultLoaded> {
         .getRange(nextPageRangeStart,
             nextPageRangeEnd > images.length ? images.length : nextPageRangeEnd)
         .toList();
-
+    print(setRoverImage(widget.rover));
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: const AssetImage('lib/images/mars_With_rover.jpeg'),
+          image: AssetImage(setRoverImage(widget.rover)),
           colorFilter: ColorFilter.mode(
             Colors.black.withOpacity(0.8),
             BlendMode.srcOver,
@@ -91,7 +92,7 @@ class MrpResultLoadedState extends State<MrpResultLoaded> {
                 ),
                 Expanded(
                   flex: 3,
-                  child: Image.asset('lib/images/curiosity.jpeg'),
+                  child: Image.asset(setRoverImage(widget.rover), height: 170),
                 )
               ],
             ),
