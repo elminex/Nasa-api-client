@@ -38,6 +38,11 @@ class _MarsRoverFormPageState extends State<MarsRoverFormPage> {
             .where((element) => element.rover == "curiosity")
             .first
             .date;
+      case "Perseverance":
+        return dateList
+            .where((element) => element.rover == "perseverance")
+            .first
+            .date;
     }
     throw ArgumentError.notNull("Not a rover");
   }
@@ -104,7 +109,10 @@ class _MarsRoverFormPageState extends State<MarsRoverFormPage> {
                         DropdownMenuItem(value: rover, child: Text(rover)))
                     .toList(),
                 onChanged: (String? value) {
-                  setState(() => roverSelectedValue = value);
+                  setState(() {
+                    roverSelectedValue = value;
+                    selectedDate = _setDate(missionEndDates);
+                  });
                 }),
             DropdownButtonFormField(
                 padding: const EdgeInsets.only(bottom: 16),
@@ -164,11 +172,21 @@ class _MarsRoverFormPageState extends State<MarsRoverFormPage> {
                     final String requestYear = selectedDate.year.toString();
                     final String requestMonth = selectedDate.month.toString();
                     final String requestDay = selectedDate.day.toString();
+                    final String formattedDate =
+                        '$requestYear-$requestMonth-$requestDay';
                     context.read<MarsRoverCubit>().getRoverPhoto(
                         roverSelectedValue!,
-                        '$requestYear-$requestMonth-$requestDay',
+                        formattedDate,
                         cameraSelectedValue);
-                    context.go('/mrp/photos');
+                    context.goNamed('mrp-photos', pathParameters: {
+                      'date': formattedDate,
+                      'rover': roverSelectedValue!,
+                      'cameras': cameras
+                          .where(
+                              (element) => element.value == cameraSelectedValue)
+                          .first
+                          .name
+                    });
                   }
                 },
                 child: const Text('Show Photos'),

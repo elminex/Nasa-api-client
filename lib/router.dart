@@ -55,8 +55,16 @@ final router = GoRouter(
             const PageBuilder(page: MarsRoverFormPage()),
         routes: [
           GoRoute(
-              path: 'photos',
-              builder: (context, state) => const MarsRoverPhotoPage())
+            path: 'photos/:date/:rover/:cameras',
+            name: 'mrp-photos',
+            builder: (context, state) {
+              return MarsRoverPhotoPage(
+                date: state.pathParameters['date']!,
+                rover: state.pathParameters['rover']!,
+                cameras: state.pathParameters['cameras']!,
+              );
+            },
+          ),
         ]),
     GoRoute(
         path: '/nil',

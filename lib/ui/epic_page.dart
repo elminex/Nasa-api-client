@@ -17,12 +17,6 @@ class _EpicPageState extends State<EpicPage> {
   int _currentPage = 0;
 
   @override
-  void initState() {
-    _currentPage = _controller.page as int;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<EpicCubit, EpicState>(
       builder: (context, state) {

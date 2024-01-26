@@ -39,6 +39,7 @@ flutter:
   assets:
     - lib/images/apoc_placeholder.jpeg
     - lib/images/curiosity.jpeg
+    - lib/images/perseverance.jpeg
     - lib/images/mars_With_rover.jpeg
     - lib/images/spirit&opportunity.jpeg
     - lib/images/landing_bg.jpg

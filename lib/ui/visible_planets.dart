@@ -19,7 +19,7 @@ class _VisiblePlanetsPageState extends State<VisiblePlanetsPage> {
   void tapHandler(String planetName) {
     setState(() {
       startAnimation = true;
-      Future.delayed(Durations.medium1, () => selectedPlanet = planetName);
+      Future.delayed(Durations.short4, () => selectedPlanet = planetName);
     });
   }
 
@@ -61,7 +61,7 @@ class _VisiblePlanetsPageState extends State<VisiblePlanetsPage> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                   child: AnimatedScale(
-                    duration: Durations.medium2,
+                    duration: Durations.short4,
                     scale: startAnimation ? 0 : 1,
                     onEnd: () => setState(() => startAnimation = false),
                     child: Column(

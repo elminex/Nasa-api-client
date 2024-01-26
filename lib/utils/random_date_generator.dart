@@ -1,23 +1,53 @@
 import 'dart:math';
+import 'package:nasa_api_app/roverOptions/rover_options.dart';
 
 DateTime? randomDateGenerator(String roverName) {
   Rover opportunity = Rover(
       name: "Opportunity",
-      maxDate: DateTime.parse("2018-06-11"),
-      minDate: DateTime.parse("2004-01-25"));
+      maxDate: missionEndDates
+          .where((element) => element.rover == "opportunity")
+          .first
+          .date,
+      minDate: missionStartdates
+          .where((element) => element.rover == "opportunity")
+          .first
+          .date);
   Rover spirit = Rover(
       name: "Spirit",
-      maxDate: DateTime.parse("2010-03-21"),
-      minDate: DateTime.parse("2004-01-04"));
+      maxDate: missionEndDates
+          .where((element) => element.rover == "spirit")
+          .first
+          .date,
+      minDate: missionStartdates
+          .where((element) => element.rover == "spirit")
+          .first
+          .date);
   Rover curiosity = Rover(
       name: "Curiosity",
-      maxDate: DateTime.now(),
-      minDate: DateTime.parse("2012-08-06"));
+      maxDate: missionEndDates
+          .where((element) => element.rover == "curiosity")
+          .first
+          .date,
+      minDate: missionStartdates
+          .where((element) => element.rover == "curiosity")
+          .first
+          .date);
+  Rover pervererance = Rover(
+      name: "Perseverance",
+      maxDate: missionEndDates
+          .where((element) => element.rover == "perseverance")
+          .first
+          .date,
+      minDate: missionStartdates
+          .where((element) => element.rover == "perseverance")
+          .first
+          .date);
 
   final DateTime? randomDate = switch (roverName) {
     "Opportunity" => opportunity.getRandomDate(),
     "Spirit" => spirit.getRandomDate(),
     "Curiosity" => curiosity.getRandomDate(),
+    "Perseverance" => pervererance.getRandomDate(),
     _ => null
   };
   return randomDate;

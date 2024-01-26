@@ -10,6 +10,7 @@ List<DropdownMenuItem<String>>? getCameras(selectedRover) {
     "Opportunity" => "o",
     "Curiosity" => "c",
     "Spirit" => "s",
+    "Perseverance" => 'p',
     _ => ''
   };
   Iterable<Camera> filteredCameras = cameras
