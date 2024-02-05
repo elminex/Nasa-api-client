@@ -46,6 +46,7 @@ flutter:
     - lib/images/earth.png
     - lib/images/jupiter.png
     - lib/images/mars.png
+    - lib/images/moon.png
     - lib/images/mercury.png
     - lib/images/neptune.png
     - lib/images/saturn.png
@@ -56,6 +57,7 @@ flutter:
     - lib/images/earthLarge.jpeg
     - lib/images/jupiterLarge.jpeg
     - lib/images/marsLarge.jpeg
+    - lib/images/moonLarge.jpeg
     - lib/images/mercuryLarge.jpeg
     - lib/images/neptuneLarge.jpeg
     - lib/images/saturnLarge.jpeg

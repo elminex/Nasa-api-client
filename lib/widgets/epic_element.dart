@@ -32,7 +32,7 @@ class EpicElement extends StatelessWidget {
           Expanded(
             child: Image(
               image: NetworkImage(epic.image),
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.contain,
               width: MediaQuery.of(context).size.width,
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress == null) {

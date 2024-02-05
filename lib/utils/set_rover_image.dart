@@ -1,5 +1,4 @@
 String setRoverImage(String rover) {
-  print(rover);
   switch (rover) {
     case 'Spirit':
       return 'lib/images/spirit&opportunity.jpeg';

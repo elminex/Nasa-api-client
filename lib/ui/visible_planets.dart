@@ -34,6 +34,7 @@ class _VisiblePlanetsPageState extends State<VisiblePlanetsPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(selectedPlanet);
     return BlocBuilder<VisiblePlanetsCubit, VisiblePlanetsState>(
         builder: (context, state) {
       if (state is VisiblePlanetsLoaded) {

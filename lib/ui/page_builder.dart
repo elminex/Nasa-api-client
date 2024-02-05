@@ -46,18 +46,6 @@ class PageBuilder extends StatelessWidget {
       ),
       body: page,
       floatingActionButton: button,
-      bottomNavigationBar: footerButtons != null
-          ? SizedBox(
-              height: 120,
-              child: Container(
-                decoration: const BoxDecoration(color: Colors.black),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: footerButtons!,
-                ),
-              ),
-            )
-          : null,
     );
   }
 }

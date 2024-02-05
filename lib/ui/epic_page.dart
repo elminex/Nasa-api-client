@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nasa_api_app/api/models/epic/image_type_enum.dart';
 import 'package:nasa_api_app/widgets/epic_element.dart';
 import 'package:collection/collection.dart';
 import 'package:nasa_api_app/widgets/pagination_arrows.dart';
@@ -44,6 +45,30 @@ class _EpicPageState extends State<EpicPage> {
                   duration: Durations.medium1,
                   curve: Curves.easeIn,
                 ),
+              ),
+              const Text('Select image type:'),
+              Row(
+                children: [
+                  ...ImageTypeEnum.values.map((type) => Expanded(
+                        flex: 1,
+                        child: TextButton(
+                          onPressed: () {
+                            context.read<EpicCubit>().getImages(type.name);
+                            setState(() => _currentPage = 0);
+                          },
+                          child: Text(
+                            type.name,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                          ),
+                        ),
+                      )),
+                ],
               )
             ],
           );

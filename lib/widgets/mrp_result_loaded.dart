@@ -38,7 +38,6 @@ class MrpResultLoadedState extends State<MrpResultLoaded> {
         .getRange(nextPageRangeStart,
             nextPageRangeEnd > images.length ? images.length : nextPageRangeEnd)
         .toList();
-    print(setRoverImage(widget.rover));
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(

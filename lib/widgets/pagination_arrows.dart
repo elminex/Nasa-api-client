@@ -10,7 +10,7 @@ class PaginationArrows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(32, 8, 32, 32.0),
+      padding: const EdgeInsets.fromLTRB(32, 8, 32, 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
