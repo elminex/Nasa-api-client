@@ -12,53 +12,89 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<ApodCubit, ApodState>(
       builder: (context, state) {
         if (state is ApodLoaded) {
+          final Widget image = state.apod.url != null
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: FadeInImage(
+                    image: NetworkImage(state.apod.url!),
+                    height: 300,
+                    fit: BoxFit.contain,
+                    placeholder: MemoryImage(kTransparentImage),
+                  ),
+                )
+              : const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: Image(
+                    image: AssetImage('lib/images/apoc_placeholder.jpeg'),
+                    fit: BoxFit.cover,
+                  ),
+                );
+
           return Padding(
-            padding: const EdgeInsets.fromLTRB(12.0, 12, 12, 110),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: Column(
-                  children: [
-                    if (state.apod.title != null)
-                      Text(
-                        state.apod.title!,
-                        style: Theme.of(context).textTheme.headlineLarge,
-                        textAlign: TextAlign.center,
+            padding: MediaQuery.of(context).orientation == Orientation.landscape
+                ? const EdgeInsets.all(12)
+                : const EdgeInsets.fromLTRB(12.0, 12, 12, 110),
+            child: MediaQuery.of(context).orientation == Orientation.landscape
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: image,
                       ),
-                    if (state.apod.date != null)
-                      Text(
-                        'Release date: ${state.apod.date!.year}-${state.apod.date!.month}-${state.apod.date!.day}',
-                        style: Theme.of(context).textTheme.bodyLarge,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(children: [
+                            if (state.apod.title != null)
+                              Text(
+                                state.apod.title!,
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                                textAlign: TextAlign.center,
+                              ),
+                            if (state.apod.date != null)
+                              Text(
+                                'Release date: ${state.apod.date!.year}-${state.apod.date!.month}-${state.apod.date!.day}',
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            if (state.apod.explanation != null)
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(state.apod.explanation!),
+                              ),
+                            if (state.apod.copyright != null)
+                              Text('copyright: ${state.apod.copyright}'),
+                          ]),
+                        ),
                       ),
-                    state.apod.url != null
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 24),
-                            child: FadeInImage(
-                              image: NetworkImage(state.apod.url!),
-                              height: 300,
-                              fit: BoxFit.contain,
-                              placeholder: MemoryImage(kTransparentImage),
+                    ],
+                  )
+                : SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Column(
+                        children: [
+                          if (state.apod.title != null)
+                            Text(
+                              state.apod.title!,
+                              style: Theme.of(context).textTheme.headlineLarge,
+                              textAlign: TextAlign.center,
                             ),
-                          )
-                        : const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 24),
-                            child: Image(
-                              image: AssetImage(
-                                  'lib/images/apoc_placeholder.jpeg'),
-                              fit: BoxFit.cover,
+                          if (state.apod.date != null)
+                            Text(
+                              'Release date: ${state.apod.date!.year}-${state.apod.date!.month}-${state.apod.date!.day}',
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                          ),
-                    if (state.apod.explanation != null)
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(state.apod.explanation!),
+                          image,
+                          if (state.apod.explanation != null)
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(state.apod.explanation!),
+                            ),
+                          if (state.apod.copyright != null)
+                            Text('copyright: ${state.apod.copyright}'),
+                        ],
                       ),
-                    if (state.apod.copyright != null)
-                      Text('copyright: ${state.apod.copyright}'),
-                  ],
-                ),
-              ),
-            ),
+                    ),
+                  ),
           );
         }
         if (state is ApodError) {

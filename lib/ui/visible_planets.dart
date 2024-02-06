@@ -19,7 +19,7 @@ class _VisiblePlanetsPageState extends State<VisiblePlanetsPage> {
   void tapHandler(String planetName) {
     setState(() {
       startAnimation = true;
-      Future.delayed(Durations.short4, () => selectedPlanet = planetName);
+      Future.delayed(Durations.short3, () => selectedPlanet = planetName);
     });
   }
 
@@ -34,61 +34,72 @@ class _VisiblePlanetsPageState extends State<VisiblePlanetsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(selectedPlanet);
     return BlocBuilder<VisiblePlanetsCubit, VisiblePlanetsState>(
         builder: (context, state) {
       if (state is VisiblePlanetsLoaded) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 32.0),
-          child: Column(
-            children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    PlanetThumbnail(
-                        planet: 'earth',
-                        selected: selectedPlanet == 'earth',
-                        tapHandler: tapHandler),
-                    ...state.listOfPlanets.map((planet) => PlanetThumbnail(
-                        planet: planet.name,
-                        selected: selectedPlanet == planet.name,
-                        tapHandler: tapHandler))
-                  ],
-                ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  child: AnimatedScale(
-                    duration: Durations.short4,
-                    scale: startAnimation ? 0 : 1,
-                    onEnd: () => setState(() => startAnimation = false),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'lib/images/${selectedPlanet.toLowerCase()}Large.jpeg',
-                        ),
-                        const SizedBox(height: 20),
-                        Text(planetDescriptions[
-                            '${selectedPlanet.toLowerCase()}Description']!),
-                        const SizedBox(height: 12),
-                        if (selectedPlanet != 'earth')
-                          Text(checkVisibility(state.listOfPlanets))
-                      ],
-                    ),
+        final List<PlanetThumbnail> thumbnails = [
+          PlanetThumbnail(
+              planet: 'earth',
+              selected: selectedPlanet == 'earth',
+              tapHandler: tapHandler),
+          ...state.listOfPlanets.map((planet) => PlanetThumbnail(
+              planet: planet.name,
+              selected: selectedPlanet == planet.name,
+              tapHandler: tapHandler))
+        ];
+
+        final Widget content = Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+            child: AnimatedScale(
+              duration: Durations.short4,
+              scale: startAnimation ? 0 : 1,
+              onEnd: () => setState(() => startAnimation = false),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'lib/images/${selectedPlanet.toLowerCase()}Large.jpeg',
                   ),
-                ),
-              )
-            ],
+                  const SizedBox(height: 20),
+                  Text(planetDescriptions[
+                      '${selectedPlanet.toLowerCase()}Description']!),
+                  const SizedBox(height: 12),
+                  if (selectedPlanet != 'earth')
+                    Text(checkVisibility(state.listOfPlanets))
+                ],
+              ),
+            ),
           ),
         );
+
+        return Padding(
+            padding: const EdgeInsets.only(bottom: 32.0),
+            child: MediaQuery.of(context).orientation == Orientation.portrait
+                ? Column(
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: thumbnails,
+                        ),
+                      ),
+                      content,
+                    ],
+                  )
+                : Row(
+                    children: [
+                      content,
+                      SingleChildScrollView(
+                          child: Column(
+                        children: thumbnails,
+                      ))
+                    ],
+                  ));
       }
       if (state is VisiblePlanetsError) {
         return ErrorWidget(state.error);
       } else {
-        return const CircularProgressIndicator.adaptive();
+        return const Center(child: CircularProgressIndicator.adaptive());
       }
     });
   }

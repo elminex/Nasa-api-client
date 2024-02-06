@@ -21,7 +21,7 @@ final router = GoRouter(
           elevation: 12,
           onPressed: () => context.read<ApodCubit>().fetchRandomApod(),
           label: const Text(
-            "Get random picture of the day",
+            "Get random",
             textAlign: TextAlign.center,
           ),
         ),

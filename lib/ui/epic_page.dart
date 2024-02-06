@@ -22,56 +22,76 @@ class _EpicPageState extends State<EpicPage> {
     return BlocBuilder<EpicCubit, EpicState>(
       builder: (context, state) {
         if (state is EpicLoaded) {
-          return Column(
-            children: [
-              Expanded(
-                child: PageView(
-                  controller: _controller,
-                  onPageChanged: (value) =>
-                      setState(() => _currentPage = value),
-                  children: state.epic
-                      .mapIndexed((index, epic) => EpicElement(
-                          epic: epic, index: index, controller: _controller))
-                      .toList(),
-                ),
-              ),
-              Text('Showing image ${_currentPage + 1} of ${state.epic.length}'),
-              PaginationArrows(
-                onPressedNext: () => _controller.nextPage(
-                  duration: Durations.medium1,
-                  curve: Curves.easeIn,
-                ),
-                onPressedPrev: () => _controller.previousPage(
-                  duration: Durations.medium1,
-                  curve: Curves.easeIn,
-                ),
-              ),
-              const Text('Select image type:'),
-              Row(
-                children: [
-                  ...ImageTypeEnum.values.map((type) => Expanded(
-                        flex: 1,
-                        child: TextButton(
-                          onPressed: () {
-                            context.read<EpicCubit>().getImages(type.name);
-                            setState(() => _currentPage = 0);
-                          },
-                          child: Text(
-                            type.name,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                          ),
-                        ),
-                      )),
-                ],
-              )
-            ],
+          final Widget titleAndImage = Expanded(
+            child: PageView(
+              controller: _controller,
+              onPageChanged: (value) => setState(() => _currentPage = value),
+              children: state.epic
+                  .mapIndexed((index, epic) => EpicElement(
+                      epic: epic, index: index, controller: _controller))
+                  .toList(),
+            ),
           );
+
+          final Widget pagination = PaginationArrows(
+              onPressedNext: () => _controller.nextPage(
+                    duration: Durations.medium1,
+                    curve: Curves.easeIn,
+                  ),
+              onPressedPrev: () => _controller.previousPage(
+                    duration: Durations.medium1,
+                    curve: Curves.easeIn,
+                  ),
+              text:
+                  'Showing image ${_currentPage + 1} of ${state.epic.length}');
+          final List<Widget> imageTypeButtons = ImageTypeEnum.values
+              .map(
+                (type) => Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () {
+                      context.read<EpicCubit>().getImages(type.name);
+                      setState(() => _currentPage = 0);
+                    },
+                    child: Text(
+                      type.name,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                  ),
+                ),
+              )
+              .toList();
+          return MediaQuery.of(context).orientation == Orientation.portrait
+              ? Column(
+                  children: [
+                    titleAndImage,
+                    pagination,
+                    const Text('Select image type:'),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Row(
+                        children: imageTypeButtons,
+                      ),
+                    )
+                  ],
+                )
+              : Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [titleAndImage, pagination],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        const Text('Select image type:'),
+                        ...imageTypeButtons
+                      ],
+                    ),
+                  ],
+                );
         }
         if (state is EpicError) {
           return ErrorWidget(state.error);

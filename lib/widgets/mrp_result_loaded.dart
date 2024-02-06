@@ -51,92 +51,169 @@ class MrpResultLoadedState extends State<MrpResultLoaded> {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12),
-                child: Text(
-                  "Images from Mars",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Rover: ${widget.rover}',
-                        textAlign: TextAlign.start,
+        child: MediaQuery.of(context).orientation == Orientation.portrait
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 12),
+                      child: Text(
+                        "Images from Mars",
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          'Cameras: ${widget.cameras}',
-                          textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Rover: ${widget.rover}',
+                              textAlign: TextAlign.start,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                'Cameras: ${widget.cameras}',
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                            Text(
+                              'Date: ${widget.date}',
+                              textAlign: TextAlign.start,
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        'Date: ${widget.date}',
-                        textAlign: TextAlign.start,
-                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Image.asset(setRoverImage(widget.rover),
+                            height: 170),
+                      )
                     ],
                   ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Image.asset(setRoverImage(widget.rover), height: 170),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
-            CarouselSlider(
-              items: imagesRange,
-              carouselController: _controller,
-              options: CarouselOptions(
-                  autoPlay: autoplay,
-                  enlargeCenterPage: true,
-                  aspectRatio: 4 / 3,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _currentSlide = index;
-                    });
-                  }),
-            ),
-            const SizedBox(height: 12),
-            Center(
-              child: IndicatorDots(
-                  controller: _controller,
-                  current: _currentSlide,
-                  images: imagesRange),
-            ),
-            const SizedBox(height: 30),
-            Center(
-              child: Text(
-                  'Showing images $nextPageRangeStart to ${nextPageRangeEnd > images.length ? images.length : nextPageRangeEnd} out of ${images.length}.'),
-            ),
-            PaginationArrows(
-              onPressedNext: nextPageRangeEnd >= images.length
-                  ? null
-                  : () {
-                      int nextPage = currentPage + 1;
-                      setState(() => currentPage = nextPage);
-                    },
-              onPressedPrev: currentPage - 1 < 0
-                  ? null
-                  : () {
-                      int prevPage = currentPage - 1;
-                      setState(() => currentPage = prevPage);
-                    },
-            )
-          ],
-        ),
+                  const SizedBox(height: 16),
+                  CarouselSlider(
+                    items: imagesRange,
+                    carouselController: _controller,
+                    options: CarouselOptions(
+                        autoPlay: autoplay,
+                        enlargeCenterPage: true,
+                        aspectRatio: 4 / 3,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _currentSlide = index;
+                          });
+                        }),
+                  ),
+                  const SizedBox(height: 12),
+                  Center(
+                    child: IndicatorDots(
+                        controller: _controller,
+                        current: _currentSlide,
+                        images: imagesRange),
+                  ),
+                  const SizedBox(height: 30),
+                  PaginationArrows(
+                    onPressedNext: nextPageRangeEnd >= images.length
+                        ? null
+                        : () {
+                            int nextPage = currentPage + 1;
+                            setState(() => currentPage = nextPage);
+                          },
+                    onPressedPrev: currentPage - 1 < 0
+                        ? null
+                        : () {
+                            int prevPage = currentPage - 1;
+                            setState(() => currentPage = prevPage);
+                          },
+                    text:
+                        'Showing images $nextPageRangeStart to ${nextPageRangeEnd > images.length ? images.length : nextPageRangeEnd} out of ${images.length}.',
+                  )
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12.0),
+                          child: Text(
+                            "Images from Mars",
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                        ),
+                        Text(
+                          'Rover: ${widget.rover}',
+                          textAlign: TextAlign.start,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            'Cameras: ${widget.cameras}',
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        Text(
+                          'Date: ${widget.date}',
+                          textAlign: TextAlign.start,
+                        ),
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Image.asset(setRoverImage(widget.rover)),
+                        )),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: CarouselSlider(
+                            items: imagesRange,
+                            carouselController: _controller,
+                            options: CarouselOptions(
+                                autoPlay: autoplay,
+                                enlargeCenterPage: true,
+                                aspectRatio: 4 / 3,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    _currentSlide = index;
+                                  });
+                                }),
+                          ),
+                        ),
+                        PaginationArrows(
+                          onPressedNext: nextPageRangeEnd >= images.length
+                              ? null
+                              : () {
+                                  int nextPage = currentPage + 1;
+                                  setState(() => currentPage = nextPage);
+                                },
+                          onPressedPrev: currentPage - 1 < 0
+                              ? null
+                              : () {
+                                  int prevPage = currentPage - 1;
+                                  setState(() => currentPage = prevPage);
+                                },
+                          text:
+                              'Showing images $nextPageRangeStart to ${nextPageRangeEnd > images.length ? images.length : nextPageRangeEnd} out of ${images.length}.',
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
       ),
     );
   }

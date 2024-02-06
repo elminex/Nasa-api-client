@@ -22,45 +22,47 @@ class _NILFormPageState extends State<NILFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Text(
-              'NASA Image and Video Library',
-              style: Theme.of(context).textTheme.headlineMedium,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Text(
+                'NASA Image and Video Library',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 8.0),
-            child: Text(
-                'NASA Image and Video Library, serving up consolidated imagery and videos in one searchable location. Users can download content in multiple sizes and resolutions and see the metadata associated with images, including EXIF/camera data on many images.'),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: TextField(
-              controller: _queryTextController,
-              decoration: const InputDecoration(
-                  label: Text("Search for images"),
-                  contentPadding: EdgeInsets.symmetric(vertical: 8),
-                  hintText: "What do you want to search for?"),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                  'NASA Image and Video Library, serving up consolidated imagery and videos in one searchable location. Users can download content in multiple sizes and resolutions and see the metadata associated with images, including EXIF/camera data on many images.'),
             ),
-          ),
-          ElevatedButton(
-              onPressed: () {
-                if (_queryTextController.text.isNotEmpty) {
-                  context
-                      .read<NILCubit>()
-                      .getCollections(_queryTextController.text, null);
-                  context.go('/nil/result');
-                } else {
-                  showMyDialog(context, "Input can't be empty");
-                }
-              },
-              child: const Text("Search for image"))
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: TextField(
+                controller: _queryTextController,
+                decoration: const InputDecoration(
+                    label: Text("Search for images"),
+                    contentPadding: EdgeInsets.symmetric(vertical: 8),
+                    hintText: "What do you want to search for?"),
+              ),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  if (_queryTextController.text.isNotEmpty) {
+                    context
+                        .read<NILCubit>()
+                        .getCollections(_queryTextController.text, null);
+                    context.go('/nil/result');
+                  } else {
+                    showMyDialog(context, "Input can't be empty");
+                  }
+                },
+                child: const Text("Search for image"))
+          ],
+        ),
       ),
     );
   }

@@ -11,7 +11,10 @@ class PageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation:
+          MediaQuery.of(context).orientation == Orientation.portrait
+              ? FloatingActionButtonLocation.centerDocked
+              : FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
         title: const Text("NASA API CLIENT"),
       ),

@@ -27,8 +27,11 @@ class NILResultPage extends StatelessWidget {
               Expanded(
                 child: GridView(
                   padding: const EdgeInsets.all(24),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: MediaQuery.of(context).orientation ==
+                            Orientation.portrait
+                        ? 2
+                        : 4,
                     childAspectRatio: 4 / 3,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
