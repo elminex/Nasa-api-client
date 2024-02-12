@@ -8,9 +8,9 @@ sealed class NILState {
 
 final class NILInitial extends NILState {}
 
-class NILLoading extends NILState {}
+final class NILLoading extends NILState {}
 
-class NILLoaded extends NILState {
+final class NILLoaded extends NILState {
   final FilteredNILCollection collection;
   const NILLoaded(this.collection);
   @override

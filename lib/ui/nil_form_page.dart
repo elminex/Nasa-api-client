@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nasa_api_app/bloc/nil/cubit/nil_cubit.dart';
 import 'package:nasa_api_app/utils/show_my_dialog.dart';
+import 'package:nasa_api_app/widgets/page_title.dart';
 
 class NILFormPage extends StatefulWidget {
   const NILFormPage({super.key});
@@ -27,26 +28,38 @@ class _NILFormPageState extends State<NILFormPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Text(
+            const Padding(
+              padding: EdgeInsets.only(bottom: 24.0),
+              child: PageTitle(
                 'NASA Image and Video Library',
-                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 8.0),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 24.0),
               child: Text(
-                  'NASA Image and Video Library, serving up consolidated imagery and videos in one searchable location. Users can download content in multiple sizes and resolutions and see the metadata associated with images, including EXIF/camera data on many images.'),
+                  'NASA Image and Video Library, serving up consolidated imagery and videos in one searchable location. Users can download content in multiple sizes and resolutions and see the metadata associated with images, including EXIF/camera data on many images.',
+                  style: Theme.of(context).textTheme.bodySmall),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.only(bottom: 20.0),
               child: TextField(
                 controller: _queryTextController,
-                decoration: const InputDecoration(
-                    label: Text("Search for images"),
-                    contentPadding: EdgeInsets.symmetric(vertical: 8),
-                    hintText: "What do you want to search for?"),
+                decoration: InputDecoration(
+                  label: const Text("Search for images"),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                  hintText: "What do you want to search for?",
+                  labelStyle: Theme.of(context).textTheme.bodySmall,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 1),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 3),
+                  ),
+                ),
               ),
             ),
             ElevatedButton(

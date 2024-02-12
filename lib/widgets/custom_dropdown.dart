@@ -24,7 +24,17 @@ class CustomDropdown extends StatelessWidget {
           horizontal: 0,
         ),
         labelText: descriptionText,
+        labelStyle: Theme.of(context).textTheme.bodySmall,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.onPrimary, width: 1),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.onPrimary, width: 3),
+        ),
       ),
+      style: Theme.of(context).textTheme.bodyMedium,
       hint: Text(descriptionText),
       validator: (value) => value == null ? descriptionText : null,
       value: value,

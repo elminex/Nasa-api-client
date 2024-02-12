@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nasa_api_app/widgets/page_title.dart';
 import 'package:transparent_image/transparent_image.dart';
 import '../bloc/apod/apod_cubit.dart';
 import '../bloc/apod/apod_state.dart';
@@ -44,11 +45,8 @@ class HomePage extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(children: [
                             if (state.apod.title != null)
-                              Text(
+                              PageTitle(
                                 state.apod.title!,
-                                style:
-                                    Theme.of(context).textTheme.headlineLarge,
-                                textAlign: TextAlign.center,
                               ),
                             if (state.apod.date != null)
                               Text(
@@ -58,7 +56,9 @@ class HomePage extends StatelessWidget {
                             if (state.apod.explanation != null)
                               Padding(
                                 padding: const EdgeInsets.all(12.0),
-                                child: Text(state.apod.explanation!),
+                                child: Text(state.apod.explanation!,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
                               ),
                             if (state.apod.copyright != null)
                               Text('copyright: ${state.apod.copyright}'),

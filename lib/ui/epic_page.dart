@@ -34,30 +34,36 @@ class _EpicPageState extends State<EpicPage> {
           );
 
           final Widget pagination = PaginationArrows(
-              onPressedNext: () => _controller.nextPage(
-                    duration: Durations.medium1,
-                    curve: Curves.easeIn,
-                  ),
-              onPressedPrev: () => _controller.previousPage(
-                    duration: Durations.medium1,
-                    curve: Curves.easeIn,
-                  ),
+              onPressedNext: _currentPage == state.epic.length - 1
+                  ? null
+                  : () => _controller.nextPage(
+                        duration: Durations.medium1,
+                        curve: Curves.easeIn,
+                      ),
+              onPressedPrev: _currentPage == 0
+                  ? null
+                  : () => _controller.previousPage(
+                        duration: Durations.medium1,
+                        curve: Curves.easeIn,
+                      ),
               text:
                   'Showing image ${_currentPage + 1} of ${state.epic.length}');
           final List<Widget> imageTypeButtons = ImageTypeEnum.values
               .map(
                 (type) => Expanded(
                   flex: 1,
-                  child: TextButton(
-                    onPressed: () {
-                      context.read<EpicCubit>().getImages(type.name);
-                      setState(() => _currentPage = 0);
-                    },
-                    child: Text(
-                      type.name,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).colorScheme.primary),
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: TextButton(
+                      onPressed: () {
+                        context.read<EpicCubit>().getImages(type.name);
+                        setState(() => _currentPage = 0);
+                      },
+                      child: Text(
+                        type.name,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     ),
                   ),
                 ),
@@ -65,12 +71,16 @@ class _EpicPageState extends State<EpicPage> {
               .toList();
           return MediaQuery.of(context).orientation == Orientation.portrait
               ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     titleAndImage,
                     pagination,
-                    const Text('Select image type:'),
+                    Text(
+                      'Select image type:',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
+                      padding: const EdgeInsets.only(bottom: 24.0),
                       child: Row(
                         children: imageTypeButtons,
                       ),
@@ -86,7 +96,10 @@ class _EpicPageState extends State<EpicPage> {
                     ),
                     Column(
                       children: [
-                        const Text('Select image type:'),
+                        Text(
+                          'Select image type:',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                         ...imageTypeButtons
                       ],
                     ),

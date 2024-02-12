@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:nasa_api_app/api/models/apod/apod.dart';
 import 'package:nasa_api_app/api/models/epic/epic.dart';
+import 'package:nasa_api_app/api/models/news/paginated_article_list.dart';
 import 'package:nasa_api_app/api/models/nil/nil_response.dart';
 import 'package:nasa_api_app/api/models/roverPhoto/rover_response.dart';
 import 'package:nasa_api_app/api/models/visible_planets/visible_planets_model.dart';
@@ -124,6 +125,29 @@ class ApiService {
     if (response.statusCode == 200) {
       if (response.body.isNotEmpty) {
         final body = List<String>.from(json.decode(response.body));
+        return body;
+      } else {
+        throw Exception("Response is empty");
+      }
+    }
+    throw Exception(
+        "Error fetching data. Status code: ${response.statusCode}, response: ${response.body}");
+  }
+
+  Future<PaginatedArticleList> getNews(
+      int? currentPage, int? pageSize, String? paginationUrl) async {
+    const String apiUrl = 'https://api.spaceflightnewsapi.net/v4/articles';
+    Uri getInitialUrl() => Uri.parse(apiUrl).replace(queryParameters: {
+          "limit": pageSize.toString(),
+          "offset": '${pageSize! * (currentPage! - 1)}',
+        });
+    final response = await http.get(
+        paginationUrl != null && pageSize == null && currentPage == null
+            ? Uri.parse(paginationUrl)
+            : getInitialUrl());
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        final body = PaginatedArticleList.fromJson(json.decode(response.body));
         return body;
       } else {
         throw Exception("Response is empty");

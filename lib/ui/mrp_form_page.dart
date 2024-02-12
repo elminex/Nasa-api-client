@@ -8,6 +8,7 @@ import 'package:nasa_api_app/utils/get_cameras.dart';
 import 'package:nasa_api_app/utils/show_my_dialog.dart';
 import 'package:nasa_api_app/utils/set_datepicker_date.dart';
 import 'package:nasa_api_app/widgets/custom_dropdown.dart';
+import 'package:nasa_api_app/widgets/page_title.dart';
 import 'dart:io' show Platform;
 
 import '../utils/random_date_generator.dart';
@@ -21,12 +22,11 @@ class MarsRoverFormPage extends StatefulWidget {
 
 class _MarsRoverFormPageState extends State<MarsRoverFormPage> {
   final _formKey = GlobalKey<FormState>();
-  String? roverSelectedValue;
+  Rovers? roverSelectedValue;
   String cameraSelectedValue = "all";
   DateTime selectedDate = DateTime.now();
 
   void _showDialog(Widget child) {
-    print('showCupertinoModal');
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => Container(
@@ -50,7 +50,6 @@ class _MarsRoverFormPageState extends State<MarsRoverFormPage> {
 
   Future<void> _selectDate(BuildContext context) async {
     if (Platform.isIOS) {
-      print('showIOS datepicker');
       _showDialog(
         CupertinoDatePicker(
           initialDateTime: setDate(missionEndDates, roverSelectedValue),
@@ -85,28 +84,34 @@ class _MarsRoverFormPageState extends State<MarsRoverFormPage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> titleAndDescription = [
-      Padding(
-        padding: const EdgeInsets.only(bottom: 12.0),
-        child: Text(
+      const Padding(
+        padding: EdgeInsets.only(bottom: 12.0),
+        child: PageTitle(
           'Mars Rover Api',
-          style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
-      const Padding(
-        padding: EdgeInsets.only(bottom: 8.0),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
         child: Text(
-            'This API is designed to collect image data gathered by NASA\'s Curiosity, Opportunity, and Spirit rovers on Mars and make it more easily available to other developers, educators, and citizen scientists. This API is maintained by Chris Cerami.'),
+          'This API is designed to collect image data gathered by NASA\'s Curiosity, Opportunity, and Spirit rovers on Mars and make it more easily available to other developers, educators, and citizen scientists. This API is maintained by Chris Cerami.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
       ),
     ];
     final CustomDropdown roverDropdown = CustomDropdown(
-      items: rovers
-          .map<DropdownMenuItem<String>>(
-              (rover) => DropdownMenuItem(value: rover, child: Text(rover)))
-          .toList(),
-      value: roverSelectedValue,
+      items: Rovers.values.map<DropdownMenuItem<String>>((rover) {
+        return DropdownMenuItem(
+            key: Key(rover.name),
+            value: rover.name,
+            child: Text(rover.name.toUpperCase()));
+      }).toList(),
+      value: roverSelectedValue?.name,
       onChanged: (String? value) {
         setState(() {
-          roverSelectedValue = value;
+          if (roverSelectedValue.toString() != value) {
+            cameraSelectedValue = "all";
+          }
+          roverSelectedValue = Rovers.values.byName(value!);
           selectedDate = setDate(missionEndDates, roverSelectedValue);
         });
       },
@@ -161,10 +166,10 @@ class _MarsRoverFormPageState extends State<MarsRoverFormPage> {
           final String requestDay = selectedDate.day.toString();
           final String formattedDate = '$requestYear-$requestMonth-$requestDay';
           context.read<MarsRoverCubit>().getRoverPhoto(
-              roverSelectedValue!, formattedDate, cameraSelectedValue);
+              roverSelectedValue!.name, formattedDate, cameraSelectedValue);
           context.goNamed('mrp-photos', pathParameters: {
             'date': formattedDate,
-            'rover': roverSelectedValue!,
+            'rover': roverSelectedValue!.name,
             'cameras': cameras
                 .where((element) => element.value == cameraSelectedValue)
                 .first

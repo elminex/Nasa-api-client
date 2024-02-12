@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:nasa_api_app/widgets/drawer_tile.dart';
 
 class PageBuilder extends StatelessWidget {
   final Widget page;
@@ -20,30 +20,26 @@ class PageBuilder extends StatelessWidget {
       ),
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              child: Text("NASA API CLIENT"),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Center(
+                  child: Text(
+                "Explorer",
+                style: Theme.of(context).textTheme.displaySmall,
+              )),
             ),
-            ListTile(
-              title: const Text("Astronomy picture of the day"),
-              onTap: () => context.go('/'),
-            ),
-            ListTile(
-              title: const Text('Earth Polychromatic Imaging Camera'),
-              onTap: () => context.go('/epic'),
-            ),
-            ListTile(
-              title: const Text('Mars rover Photos'),
-              onTap: () => context.go('/mrp'),
-            ),
-            ListTile(
-              title: const Text('Nasa Image Library'),
-              onTap: () => context.go('/nil'),
-            ),
-            ListTile(
-                title: const Text("Our solar system"),
-                onTap: () => context.go('/planets'))
+            const Divider(),
+            const DrawerTile("Astronomy picture of the day", '/',
+                icon: Icons.event),
+            const DrawerTile('Earth Polychromatic Imaging Camera', '/epic',
+                icon: Icons.travel_explore),
+            const DrawerTile('Mars rover Photos', '/mrp',
+                icon: Icons.photo_camera),
+            const DrawerTile('Nasa Image Library', '/nil',
+                icon: Icons.photo_library),
+            const DrawerTile("Our solar system", '/planets', icon: Icons.book),
+            const DrawerTile("Space news", '/news', icon: Icons.newspaper),
           ],
         ),
       ),

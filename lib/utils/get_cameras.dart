@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:nasa_api_app/api/models/roverCamera/camera.dart';
 import 'package:nasa_api_app/roverOptions/rover_options.dart';
 
-List<DropdownMenuItem<String>>? getCameras(selectedRover) {
+List<DropdownMenuItem<String>>? getCameras(Rovers? selectedRover) {
   if (selectedRover == null) {
-    return selectedRover;
+    return null;
   }
   String filterValue = switch (selectedRover) {
-    "Opportunity" => "o",
-    "Curiosity" => "c",
-    "Spirit" => "s",
-    "Perseverance" => 'p',
-    _ => ''
+    Rovers.opportunity => "o",
+    Rovers.curiosity => "c",
+    Rovers.spirit => "s",
+    Rovers.perseverance => 'p',
   };
   Iterable<Camera> filteredCameras = cameras
       .where((camera) => camera.availability.characters.contains(filterValue));

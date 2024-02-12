@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nasa_api_app/bloc/apod/apod_cubit.dart';
 import 'package:nasa_api_app/ui/mrp_form_page.dart';
+import 'package:nasa_api_app/ui/news_page.dart';
 import 'package:nasa_api_app/ui/nil_form_page.dart';
 import 'package:nasa_api_app/ui/nil_result_page.dart';
+import 'package:nasa_api_app/ui/single_news_page.dart';
 import 'package:nasa_api_app/ui/visible_planets.dart';
 import './ui/home_page.dart';
-import './ui/epic_page.dart';
+import 'ui/epic_page.dart';
 import 'ui/mrp_photo_page.dart';
 import 'ui/page_builder.dart';
 
@@ -65,6 +67,17 @@ final router = GoRouter(
       path: '/planets',
       builder: (context, state) =>
           const PageBuilder(page: VisiblePlanetsPage()),
-    )
+    ),
+    GoRoute(
+        path: '/news',
+        builder: (context, state) => const PageBuilder(page: NewsPage()),
+        routes: [
+          GoRoute(
+            path: 'single/:id',
+            name: 'single-news',
+            builder: (context, state) =>
+                SingleNewsPage(articleId: state.pathParameters['id']!),
+          ),
+        ]),
   ],
 );

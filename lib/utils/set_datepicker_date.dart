@@ -1,24 +1,28 @@
 import 'package:nasa_api_app/roverOptions/rover_options.dart';
 
-DateTime setDate(List<MissionDate> dateList, String? roverSelectedValue) {
+DateTime setDate(List<MissionDate> dateList, Rovers? roverSelectedValue) {
   switch (roverSelectedValue) {
-    case "Opportunity":
+    case Rovers.opportunity:
       return dateList
-          .where((element) => element.rover == "opportunity")
+          .where((element) => element.rover == Rovers.opportunity)
           .first
           .date;
-    case "Spirit":
-      return dateList.where((element) => element.rover == "spirit").first.date;
-    case "Curiosity":
+    case Rovers.spirit:
       return dateList
-          .where((element) => element.rover == "curiosity")
+          .where((element) => element.rover == Rovers.spirit)
           .first
           .date;
-    case "Perseverance":
+    case Rovers.curiosity:
       return dateList
-          .where((element) => element.rover == "perseverance")
+          .where((element) => element.rover == Rovers.curiosity)
           .first
           .date;
+    case Rovers.perseverance:
+      return dateList
+          .where((element) => element.rover == Rovers.perseverance)
+          .first
+          .date;
+    case null:
+      throw ArgumentError.notNull("Not a rover");
   }
-  throw ArgumentError.notNull("Not a rover");
 }

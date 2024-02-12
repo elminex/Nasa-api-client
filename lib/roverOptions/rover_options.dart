@@ -1,15 +1,7 @@
 import 'package:nasa_api_app/api/models/roverCamera/camera.dart';
 
-// TODO probably could use enums here
+enum Rovers { curiosity, opportunity, spirit, perseverance }
 
-const List<String> rovers = [
-  'Curiosity',
-  'Opportunity',
-  'Spirit',
-  'Perseverance'
-];
-
-const List<Camera> perseveranceCameras = [];
 const List<Camera> cameras = [
   Camera(name: "All available cameras", value: 'all', availability: "cosp"),
   Camera(
@@ -78,21 +70,21 @@ const List<Camera> cameras = [
 ];
 
 final List<MissionDate> missionEndDates = [
-  MissionDate(rover: "curiosity", date: DateTime.now()),
-  MissionDate(rover: "perseverance", date: DateTime.now()),
-  MissionDate(rover: "opportunity", date: DateTime.parse('2019-03-12')),
-  MissionDate(rover: "spirit", date: DateTime.parse('2011-05-24')),
+  MissionDate(rover: Rovers.curiosity, date: DateTime.now()),
+  MissionDate(rover: Rovers.perseverance, date: DateTime.now()),
+  MissionDate(rover: Rovers.opportunity, date: DateTime.parse('2019-03-12')),
+  MissionDate(rover: Rovers.spirit, date: DateTime.parse('2011-05-24')),
 ];
 
 final List<MissionDate> missionStartdates = [
-  MissionDate(rover: "curiosity", date: DateTime.parse('2012-08-06')),
-  MissionDate(rover: "opportunity", date: DateTime.parse('2004-01-25')),
-  MissionDate(rover: "spirit", date: DateTime.parse('2003-06-10')),
-  MissionDate(rover: "perseverance", date: DateTime.parse('2021-02-18'))
+  MissionDate(rover: Rovers.curiosity, date: DateTime.parse('2012-08-06')),
+  MissionDate(rover: Rovers.perseverance, date: DateTime.parse('2021-02-18')),
+  MissionDate(rover: Rovers.opportunity, date: DateTime.parse('2004-01-25')),
+  MissionDate(rover: Rovers.spirit, date: DateTime.parse('2003-06-10')),
 ];
 
 class MissionDate {
-  final String rover;
+  final Rovers rover;
   final DateTime date;
 
   MissionDate({required this.rover, required this.date});

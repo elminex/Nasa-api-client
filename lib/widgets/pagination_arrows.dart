@@ -14,18 +14,22 @@ class PaginationArrows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 8, 16, 0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 16, 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
             icon: const Icon(Icons.arrow_back),
+            color: Theme.of(context).colorScheme.onSecondary,
             onPressed: onPressedPrev,
+            disabledColor: Colors.white38,
           ),
-          if (text != null) Text(text!),
+          if (text != null)
+            Text(text!, style: Theme.of(context).textTheme.bodySmall),
           IconButton(
             icon: const Icon(Icons.arrow_forward),
-            disabledColor: Colors.white12,
+            color: Theme.of(context).colorScheme.onSecondary,
+            disabledColor: Colors.white38,
             onPressed: onPressedNext,
           )
         ],

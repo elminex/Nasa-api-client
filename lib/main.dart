@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nasa_api_app/api/models/epic/image_type_enum.dart';
 import 'package:nasa_api_app/bloc/epic/cubit/epic_cubit.dart';
 import 'package:nasa_api_app/bloc/mars_rover/cubit/mars_rover_cubit.dart';
+import 'package:nasa_api_app/bloc/news/cubit/news_cubit.dart';
 import 'package:nasa_api_app/bloc/nil/cubit/nil_cubit.dart';
 import 'package:nasa_api_app/router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => NILCubit()),
         BlocProvider(
             create: (context) => VisiblePlanetsCubit()..getVisiblePlanets()),
+        BlocProvider(
+          create: (context) => NewsCubit(),
+        ),
       ],
       child: MaterialApp.router(
         theme: theme,

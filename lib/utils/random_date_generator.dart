@@ -1,60 +1,59 @@
 import 'dart:math';
 import 'package:nasa_api_app/roverOptions/rover_options.dart';
 
-DateTime? randomDateGenerator(String roverName) {
+DateTime? randomDateGenerator(Rovers roverName) {
   Rover opportunity = Rover(
-      name: "Opportunity",
+      name: Rovers.opportunity,
       maxDate: missionEndDates
-          .where((element) => element.rover == "opportunity")
+          .where((element) => element.rover == Rovers.opportunity)
           .first
           .date,
       minDate: missionStartdates
-          .where((element) => element.rover == "opportunity")
+          .where((element) => element.rover == Rovers.opportunity)
           .first
           .date);
   Rover spirit = Rover(
-      name: "Spirit",
+      name: Rovers.spirit,
       maxDate: missionEndDates
-          .where((element) => element.rover == "spirit")
+          .where((element) => element.rover == Rovers.spirit)
           .first
           .date,
       minDate: missionStartdates
-          .where((element) => element.rover == "spirit")
+          .where((element) => element.rover == Rovers.spirit)
           .first
           .date);
   Rover curiosity = Rover(
-      name: "Curiosity",
+      name: Rovers.curiosity,
       maxDate: missionEndDates
-          .where((element) => element.rover == "curiosity")
+          .where((element) => element.rover == Rovers.curiosity)
           .first
           .date,
       minDate: missionStartdates
-          .where((element) => element.rover == "curiosity")
+          .where((element) => element.rover == Rovers.curiosity)
           .first
           .date);
   Rover pervererance = Rover(
-      name: "Perseverance",
+      name: Rovers.perseverance,
       maxDate: missionEndDates
-          .where((element) => element.rover == "perseverance")
+          .where((element) => element.rover == Rovers.perseverance)
           .first
           .date,
       minDate: missionStartdates
-          .where((element) => element.rover == "perseverance")
+          .where((element) => element.rover == Rovers.perseverance)
           .first
           .date);
 
-  final DateTime? randomDate = switch (roverName) {
-    "Opportunity" => opportunity.getRandomDate(),
-    "Spirit" => spirit.getRandomDate(),
-    "Curiosity" => curiosity.getRandomDate(),
-    "Perseverance" => pervererance.getRandomDate(),
-    _ => null
+  final DateTime randomDate = switch (roverName) {
+    Rovers.opportunity => opportunity.getRandomDate(),
+    Rovers.spirit => spirit.getRandomDate(),
+    Rovers.curiosity => curiosity.getRandomDate(),
+    Rovers.perseverance => pervererance.getRandomDate(),
   };
   return randomDate;
 }
 
 class Rover {
-  final String name;
+  final Rovers name;
   final DateTime maxDate;
   final DateTime minDate;
 

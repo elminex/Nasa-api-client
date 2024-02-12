@@ -1,4 +1,5 @@
 import 'package:nasa_api_app/api/api_service.dart';
+import 'package:nasa_api_app/api/models/news/paginated_article_list.dart';
 import 'package:nasa_api_app/api/models/nil/nil_collection.dart';
 import 'package:nasa_api_app/api/models/roverPhoto/rover_photo.dart';
 import 'package:nasa_api_app/utils/random_apod_generator.dart';
@@ -30,4 +31,10 @@ class ApiRepository {
 
   Future<List<String>> getImageList(String link) =>
       ApiService().getImageList(link);
+
+  Future<PaginatedArticleList> getInitialNews(int currentPage, int pageSize) =>
+      ApiService().getNews(currentPage, pageSize, null);
+
+  Future<PaginatedArticleList> getNewsPaginated(String paginationUrl) =>
+      ApiService().getNews(null, null, paginationUrl);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nasa_api_app/api/models/epic/epic.dart';
+import 'package:nasa_api_app/widgets/page_title.dart';
 
 class EpicElement extends StatelessWidget {
   const EpicElement(
@@ -31,19 +32,18 @@ class EpicElement extends StatelessWidget {
 
     return MediaQuery.of(context).orientation == Orientation.portrait
         ? Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
+            padding: const EdgeInsets.fromLTRB(16, 24.0, 16, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
+                const PageTitle(
                   "Latest EPIC pictures of earth.",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 12),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(12.0, 0, 12, 12),
-                  child: Text('${epic.caption} on ${epic.date}'),
+                  child: Text('${epic.caption} on ${epic.date}',
+                      style: Theme.of(context).textTheme.bodySmall),
                 ),
                 image,
               ],
@@ -55,10 +55,8 @@ class EpicElement extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const PageTitle(
                       "Latest EPIC pictures of earth.",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
                     Padding(
